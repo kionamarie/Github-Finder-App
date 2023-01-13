@@ -1,17 +1,19 @@
 import { useState, useContext } from "react";
 import githubContext from "../../context/github/githubContext";
+import AlertContext from "../../context/alert/AlertContext";
 
 function UserSearch() {
   const [text, setText] = useState("");
 
   const { users, searchUsers, clearUsers } = useContext(githubContext);
+  const {setAlert} = useContext(AlertContext);
 
   const handleChange = (e) => setText(e.target.value);
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (text === "") {
-      alert("Input cannot be blank.");
+      setAlert('Input cannot be blank', 'error');
     } else {
       searchUsers(text);
       setText("");
