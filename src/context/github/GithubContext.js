@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
-import githubReducer from "./githubReducer";
+import GithubReducer from "./GithubReducer";
 
-const githubContext = createContext();
+const GithubContext = createContext();
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
@@ -14,7 +14,7 @@ export const GithubProvider = ({ children }) => {
     loading: false,
   };
 
-  const [state, dispatch] = useReducer(githubReducer, initialState);
+  const [state, dispatch] = useReducer(GithubReducer, initialState);
 
   // Get search results
   const searchUsers = async (text) => {
@@ -87,7 +87,7 @@ export const GithubProvider = ({ children }) => {
   const setLoading = () => dispatch({ type: "SET_LOADING" });
 
   return (
-    <githubContext.Provider
+    <GithubContext.Provider
       value={{
         users: state.users,
         user: state.user,
@@ -100,8 +100,8 @@ export const GithubProvider = ({ children }) => {
       }}
     >
       {children}
-    </githubContext.Provider>
+    </GithubContext.Provider>
   );
 };
 
-export default githubContext;
+export default GithubContext;
